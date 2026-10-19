@@ -21,7 +21,7 @@ criterion fixed in advance:
 | **Q3** | How much performance survives a move to unseen chemistry? | External collection sharing no molecular skeleton with training data, stratified by scaffold novelty |
 | **Q4** | Can a 248-molecule test set rank competing models? | Whether paired tests on it separate configurations that a larger external set separates |
 
-## Headline results
+## Headline results:
 
 - **Fusion wins within both algorithms.** Concatenating ten descriptors onto a 2,048-bit
   fingerprint improves external ranking performance in both the random forest and the
@@ -102,13 +102,3 @@ XGBoost versions. Re-running under the pinned environment in `requirements.txt` 
 partition sizes and class balance exactly and the reported performance to within roughly 0.02
 ROC-AUC. **The direction and significance of every comparison reported in the paper is unchanged
 across the environments we tested.** Pin the versions before comparing numbers.
-
-## Citation
-
-See `CITATION.cff`. The manuscript is under review; this README will be updated with the final
-reference on acceptance.
-
-## License
-
-MIT — see `LICENSE`. The underlying datasets remain under the licences of their original
-distributors.
