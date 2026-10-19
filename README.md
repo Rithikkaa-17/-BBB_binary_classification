@@ -27,8 +27,17 @@ criterion fixed in advance:
   fingerprint improves external ranking performance in both the random forest and the
   gradient-boosted ensemble, with all four confidence intervals excluding zero.
 - **Algorithm choice does not decide it.** The random forest with fused features reaches an
-  external ROC-AUC of **0.781**; the gradient-boosted equivalent reaches 0.754. The two are *not*
-  separable on the internal test set.
+  external ROC-AUC of **0.781** as a mean over five seeds (**0.783** for the seed-averaged
+  predictor); the gradient-boosted equivalent reaches 0.754. The two are *not* separable on the
+  internal test set.
+
+> **Two reporting conventions.** Every configuration is refitted under five seeds. A *per-seed
+> mean ± SD* scores each seed separately and averages the five scores; a *seed-averaged* figure
+> scores the mean of the five seed models' predicted probabilities, which is the final predictor
+> and admits no standard deviation. The two differ in the third decimal place. `results/
+> per_seed_results.json` holds both, together with all thirty underlying per-seed values and the
+> validation-selected threshold for every seed, so any figure in the paper can be traced to the
+> convention it was computed under.
 - **The internal test set cannot rank models.** Most pairwise differences on 248 molecules have
   confidence intervals spanning zero — e.g. 0.039 with an interval of −0.022 to 0.103 (p = 0.21).
 - **External performance is lower than internal, and stratification matters.** 0.854 on compounds
@@ -90,6 +99,8 @@ python src/04_revision_analyses.py         # Tanimoto, strata, class weighting
 python src/05_attribution_and_calibration.py
 python src/06_make_figures.py
 python src/07_molecules_and_beeswarm.py
+python src/08_per_seed_results.py        # per-seed and seed-averaged ROC, thresholds
+python src/09_source_strata.py           # external performance by source grouping
 ```
 
 `01_curate_and_split.py` downloads B3DB; the remaining scripts run offline.
