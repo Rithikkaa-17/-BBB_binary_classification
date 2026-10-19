@@ -1,0 +1,44 @@
+{
+ "train": {
+  "n": 1632,
+  "scaffolds": 819,
+  "median": 1.0,
+  "max": 137,
+  "singletons": 619
+ },
+ "valid": {
+  "n": 159,
+  "scaffolds": 102,
+  "median": 1.0,
+  "max": 6,
+  "singletons": 73
+ },
+ "dev": {
+  "n": 1791,
+  "scaffolds": 921,
+  "median": 1.0,
+  "max": 137,
+  "singletons": 692
+ },
+ "test": {
+  "n": 248,
+  "scaffolds": 103,
+  "median": 1.0,
+  "max": 26,
+  "singletons": 71
+ },
+ "all": {
+  "n": 2039,
+  "scaffolds": 1024,
+  "median": 1.0,
+  "max": 137,
+  "singletons": 763
+ },
+ "ext": {
+  "n": 2201,
+  "scaffolds": 1369,
+  "median": 1.0,
+  "max": 127,
+  "singletons": 1139
+ }
+}

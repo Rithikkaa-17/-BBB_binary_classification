@@ -27,7 +27,7 @@ criterion fixed in advance:
   fingerprint improves external ranking performance in both the random forest and the
   gradient-boosted ensemble, with all four confidence intervals excluding zero.
 - **Algorithm choice does not decide it.** The random forest with fused features reaches an
-  external ROC-AUC of **0.781** as a mean over five seeds (**0.783** for the seed-averaged
+  external ROC-AUC of **0.781** as a mean over five seeds (**0.782** for the seed-averaged
   predictor); the gradient-boosted equivalent reaches 0.754. The two are *not* separable on the
   internal test set.
 
@@ -42,8 +42,9 @@ criterion fixed in advance:
   confidence intervals spanning zero — e.g. 0.032 with an interval of −0.028 to 0.092 (p = 0.30).
 - **External performance is lower than internal, and stratification matters.** 0.854 on compounds
   whose scaffold occurs in the development set against **0.740** on scaffold-novel compounds.
-- **Probabilities do not transfer.** Well calibrated internally (Brier 0.092) but over-confident
-  externally (Brier 0.237, expected calibration error 0.200), because training prevalence (0.77)
+- **Probabilities do not transfer.** Well calibrated internally (Brier 0.091, expected
+  calibration error 0.070) but over-confident externally (Brier 0.236, expected calibration
+  error 0.199), because training prevalence (0.77)
   differs from external prevalence (0.50). The model is a ranking filter, not a calibrated
   probability estimator.
 
@@ -95,13 +96,14 @@ pip install -r requirements.txt
 python src/00_fetch_inputs.py              # stage BBBP and B3DB into work/
 python src/01_curate_and_split.py          # curate, scaffold-split, build external set
 python src/02_train_and_evaluate.py        # six configurations x five seeds
-python src/03_statistical_comparison.py    # paired bootstrap, SRD, Pareto
+python src/03_statistical_comparison.py    # paired bootstrap comparisons
 python src/04_revision_analyses.py         # Tanimoto, strata, class weighting
 python src/05_attribution_and_calibration.py
 python src/06_make_figures.py
 python src/07_molecules_and_beeswarm.py
 python src/08_per_seed_results.py        # per-seed and seed-averaged ROC, thresholds
 python src/09_source_strata.py           # external performance by source grouping
+python src/10_multicriteria.py           # SRD and Pareto at the selected thresholds
 ```
 
 `00_fetch_inputs.py` stages both source collections into `work/`: it copies the exact BBBP file
@@ -109,10 +111,12 @@ used for the published analysis from `data/BBBP_source.csv` (checksum-verified) 
 B3DB from the authors' repository. Pass `--b3db-path` to use a local copy on a machine without
 network access. Every later script runs offline.
 
-Verified on 19 October 2026: running `00` through `03` from the source data reproduces every
-value in `results/final_results.json` exactly — all six configurations, every measure, and both
-seed-summary conventions — and rebuilds the external set at 2,201 molecules (1,100 permeable,
-735 scaffold-overlapping, 1,466 scaffold-novel). Note that B3DB is a living database: the
+Checked on 19 October 2026 by re-running the pipeline from the source data: `00`–`01` rebuild the
+external set at 2,201 molecules (1,100 permeable, 735 scaffold-overlapping, 1,466 scaffold-novel);
+`02` retrains all six configurations over five seeds and reproduces every value in
+`results/final_results.json` — each measure on both evaluation sets, every selected threshold and
+both seed-summary conventions; `03` reproduces all thirty paired-bootstrap comparisons with their
+intervals and p-values; and `10` reproduces the SRD ranking and the Pareto front. Note that B3DB is a living database: the
 external set exactly as used is shipped at `data/external_B3DB_filtered.csv`.
 
 ## A note on reproducibility
