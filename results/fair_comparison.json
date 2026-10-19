@@ -1,0 +1,235 @@
+{
+ "rows": {
+  "RF + Morgan": {
+   "int_roc_mean": 0.8993193420306296,
+   "int_roc_sd": 0.010632595614897293,
+   "ext_roc_mean": 0.7543060028073652,
+   "ext_roc_sd": 0.0018980984594922366,
+   "int_pr": 0.9764201449218071,
+   "ext_pr": 0.7635407132835179,
+   "ext_mcc": 0.28377933856484594,
+   "ext_bacc": 0.5989815044174718,
+   "ext_brier": 0.254349796503495,
+   "ext_roc_novel": 0.7212619945599182
+  },
+  "RF + Descriptors": {
+   "int_roc_mean": 0.8835507657402155,
+   "int_roc_sd": 0.0022752321179956413,
+   "ext_roc_mean": 0.7363439848072001,
+   "ext_roc_sd": 0.0013186112171717417,
+   "int_pr": 0.97339956431468,
+   "ext_pr": 0.7294257011909282,
+   "ext_mcc": 0.2875814680423569,
+   "ext_bacc": 0.6175774089670547,
+   "ext_brier": 0.25606419210106107,
+   "ext_roc_novel": 0.6878459476238327
+  },
+  "RF + Fused": {
+   "int_roc_mean": 0.9079069767441862,
+   "int_roc_sd": 0.0036466673757708837,
+   "ext_roc_mean": 0.7814253983981505,
+   "ext_roc_sd": 0.000925660505125461,
+   "int_pr": 0.9780907776887424,
+   "ext_pr": 0.7868996715755214,
+   "ext_mcc": 0.3227301344501216,
+   "ext_bacc": 0.6257670712575345,
+   "ext_brier": 0.23611589314190518,
+   "ext_roc_novel": 0.7401307633079725
+  },
+  "XGB + Morgan": {
+   "int_roc_mean": 0.8186273397617697,
+   "int_roc_sd": 0.008567913149205237,
+   "ext_roc_mean": 0.7212165799686237,
+   "ext_roc_sd": 0.0019023419033956832,
+   "int_pr": 0.9587195770390771,
+   "ext_pr": 0.706351030031676,
+   "ext_mcc": 0.2829652416979555,
+   "ext_bacc": 0.6184794814631327,
+   "ext_brier": 0.2733437716960907,
+   "ext_roc_novel": 0.6906629330579113
+  },
+  "XGB + Descriptors": {
+   "int_roc_mean": 0.8718321043675552,
+   "int_roc_sd": 0.002112295161327321,
+   "ext_roc_mean": 0.7244343159111551,
+   "ext_roc_sd": 0.0012217127836695427,
+   "int_pr": 0.9687482820652218,
+   "ext_pr": 0.7056308306143847,
+   "ext_mcc": 0.3018963436415463,
+   "ext_bacc": 0.6316423086450335,
+   "ext_brier": 0.27376943826675415,
+   "ext_roc_novel": 0.6846309301644888
+  },
+  "XGB + Fused": {
+   "int_roc_mean": 0.8809982983550766,
+   "int_roc_sd": 0.010198203456638437,
+   "ext_roc_mean": 0.7536293452233507,
+   "ext_roc_sd": 0.0018702220154027704,
+   "int_pr": 0.9742700473204894,
+   "ext_pr": 0.7470353052987144,
+   "ext_mcc": 0.34331067673879595,
+   "ext_bacc": 0.6538943935265461,
+   "ext_brier": 0.25176066160202026,
+   "ext_roc_novel": 0.7149233112535864
+  }
+ },
+ "pairwise_external": {
+  "RF + Morgan vs RF + Descriptors": {
+   "delta": 0.018889040422566408,
+   "ci": [
+    0.0008385558275420873,
+    0.0368014085367666
+   ],
+   "p": 0.042,
+   "significant": true
+  },
+  "RF + Morgan vs RF + Fused": {
+   "delta": -0.026817102122075078,
+   "ci": [
+    -0.03628316912220774,
+    -0.01757330849041697
+   ],
+   "p": 0.0,
+   "significant": true
+  },
+  "RF + Morgan vs XGB + Morgan": {
+   "delta": 0.03351602818106817,
+   "ci": [
+    0.021645284396059675,
+    0.04507696995194435
+   ],
+   "p": 0.0,
+   "significant": true
+  },
+  "RF + Morgan vs XGB + Descriptors": {
+   "delta": 0.030631045075412304,
+   "ci": [
+    0.01155012052143911,
+    0.049598653089062764
+   ],
+   "p": 0.0036,
+   "significant": true
+  },
+  "RF + Morgan vs XGB + Fused": {
+   "delta": 0.0008515059470357787,
+   "ci": [
+    -0.012118535769511947,
+    0.013864185986580244
+   ],
+   "p": 0.8908,
+   "significant": false
+  },
+  "RF + Descriptors vs RF + Fused": {
+   "delta": -0.04570614254464148,
+   "ci": [
+    -0.05864447115474696,
+    -0.03308700928739753
+   ],
+   "p": 0.0,
+   "significant": true
+  },
+  "RF + Descriptors vs XGB + Morgan": {
+   "delta": 0.014626987758501759,
+   "ci": [
+    -0.00562347842418524,
+    0.03456685631551359
+   ],
+   "p": 0.1532,
+   "significant": false
+  },
+  "RF + Descriptors vs XGB + Descriptors": {
+   "delta": 0.011742004652845897,
+   "ci": [
+    0.0029821462561342104,
+    0.020666341661765793
+   ],
+   "p": 0.0068,
+   "significant": true
+  },
+  "RF + Descriptors vs XGB + Fused": {
+   "delta": -0.01803753447553063,
+   "ci": [
+    -0.03200517028317751,
+    -0.004535478444900433
+   ],
+   "p": 0.0096,
+   "significant": true
+  },
+  "RF + Fused vs XGB + Morgan": {
+   "delta": 0.06033313030314325,
+   "ci": [
+    0.04630780070813842,
+    0.0743551258077518
+   ],
+   "p": 0.0,
+   "significant": true
+  },
+  "RF + Fused vs XGB + Descriptors": {
+   "delta": 0.05744814719748738,
+   "ci": [
+    0.04260139419154311,
+    0.07263421371427521
+   ],
+   "p": 0.0,
+   "significant": true
+  },
+  "RF + Fused vs XGB + Fused": {
+   "delta": 0.02766860806911086,
+   "ci": [
+    0.017961410824195504,
+    0.03750552284291775
+   ],
+   "p": 0.0,
+   "significant": true
+  },
+  "XGB + Morgan vs XGB + Descriptors": {
+   "delta": -0.002884983105655863,
+   "ci": [
+    -0.02314094211934617,
+    0.018017636511074357
+   ],
+   "p": 0.7816,
+   "significant": false
+  },
+  "XGB + Morgan vs XGB + Fused": {
+   "delta": -0.032664522234032385,
+   "ci": [
+    -0.04482675645733025,
+    -0.02089490090456574
+   ],
+   "p": 0.0,
+   "significant": true
+  },
+  "XGB + Descriptors vs XGB + Fused": {
+   "delta": -0.02977953912837653,
+   "ci": [
+    -0.043734129248961764,
+    -0.01627994633850964
+   ],
+   "p": 0.0,
+   "significant": true
+  }
+ },
+ "srd": {
+  "RF + Morgan": 9,
+  "RF + Descriptors": 15,
+  "RF + Fused": 3,
+  "XGB + Morgan": 21,
+  "XGB + Descriptors": 17,
+  "XGB + Fused": 5
+ },
+ "srd_max": 30,
+ "srd_null_p5": 7.333333333333333,
+ "pareto_front": [
+  "RF + Fused",
+  "XGB + Fused"
+ ],
+ "criteria": [
+  "int_roc_mean",
+  "ext_roc_mean",
+  "ext_pr",
+  "ext_mcc",
+  "ext_bacc",
+  "ext_roc_novel"
+ ]
+}

@@ -1,0 +1,11 @@
+# Pinned environment. Results are version-sensitive; see README.
+python_requires>=3.11
+rdkit==2026.03.6
+xgboost==3.2.0
+scikit-learn==1.8.0
+numpy==2.4.4
+pandas==3.0.2
+shap==0.51.0
+scipy>=1.11
+matplotlib>=3.8
+pillow>=10.0

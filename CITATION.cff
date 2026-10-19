@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this code or these splits, please cite the following."
+title: "Blood-Brain Barrier Permeability - Binary Classification"
+abstract: >-
+  Code and partition assignments for a factorial study of molecular representation
+  and learning algorithm in blood-brain barrier permeability prediction, with
+  multi-criteria model selection and scaffold-stratified external validation.
+authors:
+  - family-names: "S. J."
+    given-names: "Rithikkaa"
+  - family-names: "P"
+    given-names: "Rohit"
+  - family-names: "S. G."
+    given-names: "Rahul"
+  - family-names: "T. M."
+    given-names: "Amirthalakshmi"
+repository-code: "https://github.com/Rithikkaa-17/-BBB_binary_classification"
+license: MIT
+date-released: "2026-10-19"

@@ -1,0 +1,294 @@
+{
+ "calibration": {
+  "RF + Fused": {
+   "internal": {
+    "brier": 0.09182580853193867,
+    "ece": 0.1028668026575335,
+    "mean_pred": 0.8260638775829686,
+    "observed": 0.8266129032258065
+   },
+   "external": {
+    "brier": 0.23732137106353554,
+    "ece": 0.199752641318225,
+    "mean_pred": 0.6995254718498016,
+    "observed": 0.49977283053157656
+   }
+  },
+  "XGB + Fused": {
+   "internal": {
+    "brier": 0.11633170396089554,
+    "ece": 0.08531713750093213,
+    "mean_pred": 0.8725689053535461,
+    "observed": 0.8266129032258065
+   },
+   "external": {
+    "brier": 0.2544427514076233,
+    "ece": 0.20731908850023173,
+    "mean_pred": 0.6848514080047607,
+    "observed": 0.49977283053157656
+   }
+  }
+ },
+ "shap_top": {
+  "RF + Fused": [
+   {
+    "feature": "TPSA",
+    "mean_abs": 0.024511926770783284,
+    "is_descriptor": true
+   },
+   {
+    "feature": "HBD",
+    "mean_abs": 0.022687162288513592,
+    "is_descriptor": true
+   },
+   {
+    "feature": "HBA",
+    "mean_abs": 0.013165406206169572,
+    "is_descriptor": true
+   },
+   {
+    "feature": "MolWt",
+    "mean_abs": 0.010763511736524865,
+    "is_descriptor": true
+   },
+   {
+    "feature": "LogP",
+    "mean_abs": 0.008928186423620725,
+    "is_descriptor": true
+   },
+   {
+    "feature": "HeavyAtomCount",
+    "mean_abs": 0.0066617497754840145,
+    "is_descriptor": true
+   },
+   {
+    "feature": "Morgan_1602",
+    "mean_abs": 0.005483072422653481,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_807",
+    "mean_abs": 0.004875449229426222,
+    "is_descriptor": false
+   },
+   {
+    "feature": "RotatableBonds",
+    "mean_abs": 0.004796358664698584,
+    "is_descriptor": true
+   },
+   {
+    "feature": "Morgan_456",
+    "mean_abs": 0.004785245622681798,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_5",
+    "mean_abs": 0.004397568292038503,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_314",
+    "mean_abs": 0.0038138373267008296,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_1480",
+    "mean_abs": 0.0037718899269951955,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_1199",
+    "mean_abs": 0.0037366520045922108,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_926",
+    "mean_abs": 0.003733665385527666,
+    "is_descriptor": false
+   }
+  ],
+  "XGB + Fused": [
+   {
+    "feature": "TPSA",
+    "mean_abs": 0.05385241970803592,
+    "is_descriptor": true
+   },
+   {
+    "feature": "HBD",
+    "mean_abs": 0.03650103181821415,
+    "is_descriptor": true
+   },
+   {
+    "feature": "LogP",
+    "mean_abs": 0.021563136018026285,
+    "is_descriptor": true
+   },
+   {
+    "feature": "MolWt",
+    "mean_abs": 0.019087020397728104,
+    "is_descriptor": true
+   },
+   {
+    "feature": "FractionCSP3",
+    "mean_abs": 0.016466165361870868,
+    "is_descriptor": true
+   },
+   {
+    "feature": "Morgan_5",
+    "mean_abs": 0.011756670435141196,
+    "is_descriptor": false
+   },
+   {
+    "feature": "HBA",
+    "mean_abs": 0.010199157829431715,
+    "is_descriptor": true
+   },
+   {
+    "feature": "Morgan_456",
+    "mean_abs": 0.010118063933289359,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_1325",
+    "mean_abs": 0.009688666023183707,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_310",
+    "mean_abs": 0.00850950145913758,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_486",
+    "mean_abs": 0.007976607350822874,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_1088",
+    "mean_abs": 0.007913706094942411,
+    "is_descriptor": false
+   },
+   {
+    "feature": "RotatableBonds",
+    "mean_abs": 0.007886812043769908,
+    "is_descriptor": true
+   },
+   {
+    "feature": "Morgan_1452",
+    "mean_abs": 0.007161325786505387,
+    "is_descriptor": false
+   },
+   {
+    "feature": "Morgan_314",
+    "mean_abs": 0.006795938106849034,
+    "is_descriptor": false
+   }
+  ]
+ },
+ "shap_direction": {
+  "RF + Fused": {
+   "MolWt": {
+    "r": -0.865010738365328,
+    "mean_abs": 0.010763511736524867,
+    "direction": "higher value favours non-permeable"
+   },
+   "LogP": {
+    "r": 0.7802782390250159,
+    "mean_abs": 0.008928186423620728,
+    "direction": "higher value favours permeable"
+   },
+   "TPSA": {
+    "r": -0.9196237164927643,
+    "mean_abs": 0.02451192677078328,
+    "direction": "higher value favours non-permeable"
+   },
+   "HBD": {
+    "r": -0.9252843634267321,
+    "mean_abs": 0.022687162288513592,
+    "direction": "higher value favours non-permeable"
+   },
+   "HBA": {
+    "r": -0.9097649269397083,
+    "mean_abs": 0.013165406206169575,
+    "direction": "higher value favours non-permeable"
+   },
+   "RotatableBonds": {
+    "r": -0.8312587828563919,
+    "mean_abs": 0.0047963586646985815,
+    "direction": "higher value favours non-permeable"
+   },
+   "RingCount": {
+    "r": -0.4272943717788058,
+    "mean_abs": 0.0010791102453276554,
+    "direction": "higher value favours non-permeable"
+   },
+   "AromaticRings": {
+    "r": -0.5762254101205098,
+    "mean_abs": 0.0013521947376636798,
+    "direction": "higher value favours non-permeable"
+   },
+   "FractionCSP3": {
+    "r": 0.42673702136631736,
+    "mean_abs": 0.0023283640009275114,
+    "direction": "higher value favours permeable"
+   },
+   "HeavyAtomCount": {
+    "r": -0.8148464181305491,
+    "mean_abs": 0.00666174977548402,
+    "direction": "higher value favours non-permeable"
+   }
+  },
+  "XGB + Fused": {
+   "MolWt": {
+    "r": -0.6130253888092804,
+    "mean_abs": 0.019087020397728114,
+    "direction": "higher value favours non-permeable"
+   },
+   "LogP": {
+    "r": -0.2631182681749164,
+    "mean_abs": 0.02156313601802629,
+    "direction": "higher value favours non-permeable"
+   },
+   "TPSA": {
+    "r": -0.9049145265199047,
+    "mean_abs": 0.05385241970803592,
+    "direction": "higher value favours non-permeable"
+   },
+   "HBD": {
+    "r": -0.9052061877338251,
+    "mean_abs": 0.03650103181821414,
+    "direction": "higher value favours non-permeable"
+   },
+   "HBA": {
+    "r": -0.8517827120000133,
+    "mean_abs": 0.010199157829431722,
+    "direction": "higher value favours non-permeable"
+   },
+   "RotatableBonds": {
+    "r": -0.26741608565246017,
+    "mean_abs": 0.00788681204376991,
+    "direction": "higher value favours non-permeable"
+   },
+   "RingCount": {
+    "r": 0.2375325802150035,
+    "mean_abs": 0.0031071346576157888,
+    "direction": "higher value favours permeable"
+   },
+   "AromaticRings": {
+    "r": -0.2685905549601079,
+    "mean_abs": 0.0017168022845299978,
+    "direction": "higher value favours non-permeable"
+   },
+   "FractionCSP3": {
+    "r": 0.5408311311761921,
+    "mean_abs": 0.01646616536187087,
+    "direction": "higher value favours permeable"
+   },
+   "HeavyAtomCount": {
+    "r": 0.051445053439307685,
+    "mean_abs": 0.004242277689335587,
+    "direction": "higher value favours permeable"
+   }
+  }
+ }
+}

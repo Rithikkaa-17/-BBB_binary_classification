@@ -1,1 +1,114 @@
-# -BBB_binary_classification
+# Blood–Brain Barrier Permeability — Binary Classification
+
+Code and data for the study *Representation Outweighs Algorithm in Blood–Brain Barrier
+Permeability Prediction: A Factorial Study with Multi-Criteria Model Selection and
+Scaffold-Stratified External Validation*.
+
+Everything reported in the manuscript can be regenerated from this repository.
+
+---
+
+## What the project asks
+
+Most published models for this endpoint report a single number from a single algorithm on a
+single held-out split. This study was built around four questions instead, each with a decision
+criterion fixed in advance:
+
+| | Question | Criterion |
+|---|---|---|
+| **Q1** | Do structural fingerprints and computed physicochemical descriptors carry *complementary* information? | Paired bootstrap interval for the fusion difference excludes zero, tested within each algorithm separately |
+| **Q2** | Does the advantage depend on the learning algorithm? | Sign and significance consistent across two independently tuned tree ensembles |
+| **Q3** | How much performance survives a move to unseen chemistry? | External collection sharing no molecular skeleton with training data, stratified by scaffold novelty |
+| **Q4** | Can a 248-molecule test set rank competing models? | Whether paired tests on it separate configurations that a larger external set separates |
+
+## Headline results
+
+- **Fusion wins within both algorithms.** Concatenating ten descriptors onto a 2,048-bit
+  fingerprint improves external ranking performance in both the random forest and the
+  gradient-boosted ensemble, with all four confidence intervals excluding zero.
+- **Algorithm choice does not decide it.** The random forest with fused features reaches an
+  external ROC-AUC of **0.781**; the gradient-boosted equivalent reaches 0.754. The two are *not*
+  separable on the internal test set.
+- **The internal test set cannot rank models.** Most pairwise differences on 248 molecules have
+  confidence intervals spanning zero — e.g. 0.039 with an interval of −0.022 to 0.103 (p = 0.21).
+- **External performance is lower than internal, and stratification matters.** 0.854 on compounds
+  whose scaffold occurs in the development set against **0.740** on scaffold-novel compounds.
+- **Probabilities do not transfer.** Well calibrated internally (Brier 0.092) but over-confident
+  externally (Brier 0.237, expected calibration error 0.200), because training prevalence (0.77)
+  differs from external prevalence (0.50). The model is a ranking filter, not a calibrated
+  probability estimator.
+
+## Data
+
+| Split | Molecules | Purpose |
+|---|---|---|
+| Training | 1,632 | model fitting |
+| Validation | 159 | hyperparameters, decision threshold |
+| Development | 1,791 | training + validation; final refit |
+| Internal test | 248 | scored once |
+| External | 2,201 | independent collection |
+
+Partitioning is by Bemis–Murcko scaffold, so no scaffold spans two partitions.
+
+**Sources.** The training collection is the BBBP set distributed with MoleculeNet. The external
+set derives from [B3DB](https://github.com/theochem/B3DB) (Meng et al., *Sci. Data* 2021).
+
+**External set construction.** Each structure is reduced to the 14-character connectivity layer of
+its InChIKey — invariant to salt form, stereochemistry and isotopic substitution. Skeletons with
+conflicting labels inside B3DB are dropped; duplicates are collapsed; every skeleton occurring
+anywhere in the source collection is removed. This leaves 2,201 compounds.
+
+> **Important distinction.** Skeleton deduplication is *not* scaffold deduplication. A
+> Bemis–Murcko scaffold is a substructure shared by many distinct molecules, so removing identical
+> skeletons leaves scaffold overlap behind. Of the 2,201 external compounds, 735 carry a scaffold
+> that also occurs in the development set and 1,466 do not. The two notions are reported
+> separately throughout; conflating them inflates apparent external performance.
+
+## Repository layout
+
+```
+data/      partition assignments (CSV) and held-out predicted probabilities (NPZ)
+src/       numbered pipeline scripts, run in order
+results/   published JSON outputs quoted in the manuscript
+figures/   publication figures at 600 dpi, numbered as in the manuscript
+work/      created on first run; intermediate artefacts, git-ignored
+```
+
+All paths in `src/` resolve relative to the repository root, so the scripts run from
+anywhere once the repository is cloned.
+
+## Reproducing
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+python src/01_curate_and_split.py          # curate, scaffold-split, build external set
+python src/02_train_and_evaluate.py        # six configurations x five seeds
+python src/03_statistical_comparison.py    # paired bootstrap, SRD, Pareto
+python src/04_revision_analyses.py         # Tanimoto, strata, class weighting
+python src/05_attribution_and_calibration.py
+python src/06_make_figures.py
+python src/07_molecules_and_beeswarm.py
+```
+
+`01_curate_and_split.py` downloads B3DB; the remaining scripts run offline.
+
+## A note on reproducibility
+
+Results are sensitive to library versions. Circular-fingerprint hashing and several descriptor
+implementations change between RDKit releases, and tree construction changes between major
+XGBoost versions. Re-running under the pinned environment in `requirements.txt` reproduces the
+partition sizes and class balance exactly and the reported performance to within roughly 0.02
+ROC-AUC. **The direction and significance of every comparison reported in the paper is unchanged
+across the environments we tested.** Pin the versions before comparing numbers.
+
+## Citation
+
+See `CITATION.cff`. The manuscript is under review; this README will be updated with the final
+reference on acceptance.
+
+## License
+
+MIT — see `LICENSE`. The underlying datasets remain under the licences of their original
+distributors.
