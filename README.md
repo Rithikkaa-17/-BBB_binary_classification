@@ -39,7 +39,7 @@ criterion fixed in advance:
 > validation-selected threshold for every seed, so any figure in the paper can be traced to the
 > convention it was computed under.
 - **The internal test set cannot rank models.** Most pairwise differences on 248 molecules have
-  confidence intervals spanning zero — e.g. 0.039 with an interval of −0.022 to 0.103 (p = 0.21).
+  confidence intervals spanning zero — e.g. 0.032 with an interval of −0.028 to 0.092 (p = 0.30).
 - **External performance is lower than internal, and stratification matters.** 0.854 on compounds
   whose scaffold occurs in the development set against **0.740** on scaffold-novel compounds.
 - **Probabilities do not transfer.** Well calibrated internally (Brier 0.092) but over-confident
@@ -76,7 +76,7 @@ anywhere in the source collection is removed. This leaves 2,201 compounds.
 ## Repository layout
 
 ```
-data/      partition assignments (CSV) and held-out predicted probabilities (NPZ)
+data/      source collection, partition assignments (CSV) and held-out probabilities (NPZ)
 src/       numbered pipeline scripts, run in order
 results/   published JSON outputs quoted in the manuscript
 figures/   publication figures at 600 dpi, numbered as in the manuscript
@@ -92,6 +92,7 @@ anywhere once the repository is cloned.
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
+python src/00_fetch_inputs.py              # stage BBBP and B3DB into work/
 python src/01_curate_and_split.py          # curate, scaffold-split, build external set
 python src/02_train_and_evaluate.py        # six configurations x five seeds
 python src/03_statistical_comparison.py    # paired bootstrap, SRD, Pareto
@@ -103,7 +104,16 @@ python src/08_per_seed_results.py        # per-seed and seed-averaged ROC, thres
 python src/09_source_strata.py           # external performance by source grouping
 ```
 
-`01_curate_and_split.py` downloads B3DB; the remaining scripts run offline.
+`00_fetch_inputs.py` stages both source collections into `work/`: it copies the exact BBBP file
+used for the published analysis from `data/BBBP_source.csv` (checksum-verified) and downloads
+B3DB from the authors' repository. Pass `--b3db-path` to use a local copy on a machine without
+network access. Every later script runs offline.
+
+Verified on 19 October 2026: running `00` through `03` from the source data reproduces every
+value in `results/final_results.json` exactly — all six configurations, every measure, and both
+seed-summary conventions — and rebuilds the external set at 2,201 molecules (1,100 permeable,
+735 scaffold-overlapping, 1,466 scaffold-novel). Note that B3DB is a living database: the
+external set exactly as used is shipped at `data/external_B3DB_filtered.csv`.
 
 ## A note on reproducibility
 
