@@ -1,4 +1,4 @@
-# Blood–Brain Barrier Permeability — Binary Classification
+# Blood–Brain Barrier Permeability - Binary Classification
 
 Code and data for the study *Representation Outweighs Algorithm in Blood–Brain Barrier
 Permeability Prediction: A Factorial Study with Multi-Criteria Model Selection and
