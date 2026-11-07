@@ -1,0 +1,26 @@
+{
+ "architecture": "D-MPNN (Chemprop-style), hidden 300, depth 3, 30 epochs, Adam 1e-3",
+ "torch": "2.5.1+cu124",
+ "Graph only": {
+  "internal_mean": 0.8394100964265455,
+  "internal_sd": 0.021158350265773694,
+  "external_mean": 0.7229241185698951,
+  "external_sd": 0.004752706075472792,
+  "external_ensemble": 0.7344096276112625
+ },
+ "Graph + 10 descriptors": {
+  "internal_mean": 0.8381622234826999,
+  "internal_sd": 0.024302179789035917,
+  "external_mean": 0.7271842126991991,
+  "external_sd": 0.00917178057645849,
+  "external_ensemble": 0.7416534555362893
+ },
+ "fusion_effect": {
+  "delta": 0.00726155527127098,
+  "ci": [
+   -0.001617981101932428,
+   0.016264027325698687
+  ],
+  "separable": false
+ }
+}
