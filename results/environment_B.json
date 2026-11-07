@@ -1,0 +1,81 @@
+{
+ "environment": "rdkit2026.09.1_sklearn1.9.1_xgb3.4.1",
+ "versions": {
+  "rdkit": "2026.09.1",
+  "scikit-learn": "1.9.1",
+  "xgboost": "3.4.1",
+  "numpy": "2.5.4"
+ },
+ "RF": {
+  "Morgan": {
+   "internal_mean": 0.9040952921157119,
+   "external_mean": 0.7553385352159193,
+   "external_sd": 0.00132473880090881,
+   "external_ensemble": 0.7563586821897448
+  },
+  "Descriptors": {
+   "internal_mean": 0.8791945547362451,
+   "external_mean": 0.734605812897366,
+   "external_sd": 0.0005050881755408861,
+   "external_ensemble": 0.7348744942614154
+  },
+  "Fused": {
+   "internal_mean": 0.9090640952921156,
+   "external_mean": 0.7809794401783503,
+   "external_sd": 0.0012343672400570286,
+   "external_ensemble": 0.7817376764924449
+  },
+  "fusion_vs_Morgan": {
+   "delta": 0.02538049887975116,
+   "ci": [
+    0.016445768769438745,
+    0.034768918893535575
+   ],
+   "separable": true
+  },
+  "fusion_vs_Descriptors": {
+   "delta": 0.04692015645920467,
+   "ci": [
+    0.03427183541915893,
+    0.06002511379240609
+   ],
+   "separable": true
+  }
+ },
+ "XGB": {
+  "Morgan": {
+   "internal_mean": 0.8079863868406125,
+   "external_mean": 0.7230748080257616,
+   "external_sd": 0.0018514963872685879,
+   "external_ensemble": 0.7240900833952606
+  },
+  "Descriptors": {
+   "internal_mean": 0.869495178672717,
+   "external_mean": 0.7221884237470068,
+   "external_sd": 0.0018389389671291355,
+   "external_ensemble": 0.7228680538353562
+  },
+  "Fused": {
+   "internal_mean": 0.8788655700510493,
+   "external_mean": 0.754415242341673,
+   "external_sd": 0.0031032767183388015,
+   "external_ensemble": 0.7557683098010073
+  },
+  "fusion_vs_Morgan": {
+   "delta": 0.031639764952516865,
+   "ci": [
+    0.019715795527547684,
+    0.044003450066685934
+   ],
+   "separable": true
+  },
+  "fusion_vs_Descriptors": {
+   "delta": 0.033091161910201325,
+   "ci": [
+    0.019465188546774127,
+    0.04699680844094659
+   ],
+   "separable": true
+  }
+ }
+}

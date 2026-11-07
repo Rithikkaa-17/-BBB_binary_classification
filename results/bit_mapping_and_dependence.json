@@ -1,0 +1,165 @@
+{
+ "dependence": {
+  "MolWt": {
+   "pearson": -0.8706023192341574,
+   "spearman": -0.9295889668962838,
+   "r2_linear": 0.7515392086151993,
+   "r2_quadratic": 0.7714642473417479,
+   "quadratic_coef": -0.000710442114531904
+  },
+  "LogP": {
+   "pearson": 0.7890007263644254,
+   "spearman": 0.628523785162728,
+   "r2_linear": 0.40391940775791235,
+   "r2_quadratic": 0.8862479328313312,
+   "quadratic_coef": -0.005170076585327934
+  },
+  "TPSA": {
+   "pearson": -0.9180740508263123,
+   "spearman": -0.9473183406611851,
+   "r2_linear": 0.8426358250990933,
+   "r2_quadratic": 0.8430883906527282,
+   "quadratic_coef": -0.00029340109060534863
+  },
+  "HBD": {
+   "pearson": -0.9261717904929259,
+   "spearman": -0.864700616278567,
+   "r2_linear": 0.8226638202610216,
+   "r2_quadratic": 0.8823769011169033,
+   "quadratic_coef": -0.0032739961296654485
+  },
+  "HBA": {
+   "pearson": -0.9097268656944634,
+   "spearman": -0.9521103243856174,
+   "r2_linear": 0.8269658410699734,
+   "r2_quadratic": 0.8283520391139896,
+   "quadratic_coef": -0.00020374841356915715
+  },
+  "RotatableBonds": {
+   "pearson": -0.8315472923481804,
+   "spearman": -0.7539754139679736,
+   "r2_linear": 0.6890939894421133,
+   "r2_quadratic": 0.6948126209168549,
+   "quadratic_coef": -0.00015964594063933057
+  },
+  "RingCount": {
+   "pearson": -0.4402608713065171,
+   "spearman": -0.3524847591644299,
+   "r2_linear": 0.19255932510905382,
+   "r2_quadratic": 0.1969240432335264,
+   "quadratic_coef": 4.481503377519558e-05
+  },
+  "AromaticRings": {
+   "pearson": -0.5617828993318009,
+   "spearman": -0.4337490794686172,
+   "r2_linear": 0.08616768478096515,
+   "r2_quadratic": 0.6443059767055666,
+   "quadratic_coef": -0.0011069843323843036
+  },
+  "FractionCSP3": {
+   "pearson": 0.4130413436383218,
+   "spearman": 0.5054277672887801,
+   "r2_linear": -0.1343935813546273,
+   "r2_quadratic": 0.5654623813572053,
+   "quadratic_coef": -0.0018535652661260155
+  },
+  "HeavyAtomCount": {
+   "pearson": -0.81887354124172,
+   "spearman": -0.8527613259671099,
+   "r2_linear": 0.6324241047479133,
+   "r2_quadratic": 0.745436613208319,
+   "quadratic_coef": -0.001219509088366596
+  }
+ },
+ "bits": {
+  "1602": {
+   "mean_abs": 0.005484278615338922,
+   "n_distinct_environments": 3,
+   "environments": {
+    "Oc": 17,
+    "OC": 3,
+    "c(=O)(c(c)c)n(c)-c": 3
+   }
+  },
+  "807": {
+   "mean_abs": 0.004890292709372191,
+   "n_distinct_environments": 2,
+   "environments": {
+    "C": 177,
+    "O": 145
+   }
+  },
+  "456": {
+   "mean_abs": 0.00469403871705225,
+   "n_distinct_environments": 3,
+   "environments": {
+    "C(C)(=O)O": 4,
+    "C(O)(C(=N)N)(c(c)c)c(c)n": 1,
+    "C(c)(=O)O": 1
+   }
+  },
+  "5": {
+   "mean_abs": 0.0044848512147703115,
+   "n_distinct_environments": 3,
+   "environments": {
+    "C([C@@H])(N)=O": 4,
+    "C([C@H])(N)=O": 3,
+    "N(C(=c)N)c(c)c": 1
+   }
+  },
+  "314": {
+   "mean_abs": 0.004119132701937198,
+   "n_distinct_environments": 2,
+   "environments": {
+    "O=C": 63,
+    "O=c": 17
+   }
+  },
+  "1199": {
+   "mean_abs": 0.0038029115626370745,
+   "n_distinct_environments": 1,
+   "environments": {
+    "c(cc)cc": 273
+   }
+  },
+  "926": {
+   "mean_abs": 0.0037840293151808787,
+   "n_distinct_environments": 3,
+   "environments": {
+    "C": 613,
+    "N(C=O)(Cc)C(=C)C": 5,
+    "C(=O)(Cc)N[C@@H]": 1
+   }
+  },
+  "1480": {
+   "mean_abs": 0.0037718131119287464,
+   "n_distinct_environments": 2,
+   "environments": {
+    "C(C)N": 167,
+    "C(Cc)(C(C)C)N(C)C": 1
+   }
+  },
+  "389": {
+   "mean_abs": 0.0036783236157874226,
+   "n_distinct_environments": 5,
+   "environments": {
+    "c(cc)cc": 34,
+    "OC": 18,
+    "c(cc)(nc)c(c)c": 3,
+    "C(CN)[C@@]([C@@])([C@H])c": 1,
+    "O(C(C)C)C(C)(C)N": 1
+   }
+  },
+  "1791": {
+   "mean_abs": 0.003450967095737453,
+   "n_distinct_environments": 7,
+   "environments": {
+    "N(C)(C)C": 42,
+    "C([C@@])(C)(C)C": 6,
+    "[C@]([C@@])(C)(C)C": 4,
+    "N(C(=O)O)c([nH])n": 1,
+    "N(C(=O)O)c(n)[nH]": 1
+   }
+  }
+ }
+}

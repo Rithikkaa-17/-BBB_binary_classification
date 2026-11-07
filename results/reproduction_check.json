@@ -1,0 +1,56 @@
+{
+ "threshold_free": {
+  "n": 36,
+  "max": 0.0019285309132162087,
+  "median": 0.0001418677822254688,
+  "n_above_0.01": 0
+ },
+ "threshold_dependent": {
+  "n": 72,
+  "max": 0.04715073100093403,
+  "median": 0.0004542357717840506,
+  "n_above_0.01": 7
+ },
+ "seed_mean_roc": {
+  "max": 0.00245036868973314
+ },
+ "thresholds_identical": [
+  "RF + Morgan",
+  "RF + Descriptors",
+  "XGB + Morgan"
+ ],
+ "thresholds_moved": {
+  "RF + Fused": [
+   0.5100000000000001,
+   0.5300000000000001
+  ],
+  "XGB + Descriptors": [
+   0.43000000000000005,
+   0.44000000000000006
+  ],
+  "XGB + Fused": [
+   0.39000000000000007,
+   0.37000000000000005
+  ]
+ },
+ "pairwise": {
+  "n": 30,
+  "max_delta_diff": 0.0033414485769249214,
+  "separability_identical": true
+ },
+ "pareto_front_published": [
+  "RF + Fused"
+ ],
+ "pareto_front_rebuilt": [
+  "RF + Fused"
+ ],
+ "worst_threshold_dependent": {
+  "abs_diff": 0.04715073100093403,
+  "config": "RF + Fused",
+  "split": "internal",
+  "measure": "MCC",
+  "published": 0.42870527316157475,
+  "rebuilt": 0.3815545421606407
+ },
+ "readme_paragraph": "Re-checked on 7 November 2026 by re-running the pipeline from the source data on a different machine, in the pinned environment. The result is reported as a tolerance rather than as exact reproduction, and the two kinds of measure behave differently.\n\n`00`\u2013`01` rebuild the external set exactly: 2,201 molecules, 1,100 permeable, 735 scaffold-overlapping, 1,466 scaffold-novel, with the rebuilt CSV identical row for row to the shipped `data/external_B3DB_filtered.csv`.\n\n**Threshold-free measures reproduce.** Across the 36 ROC-AUC, PR-AUC and Brier values in `results/final_results.json`, the largest difference is 0.0019 and the median is 0.00014; none exceeds 0.01. Seed-mean ROC-AUC moves by at most 0.00245. All 30 paired-bootstrap comparisons reproduce to within 0.0033 in the difference and every separability verdict is unchanged. The Pareto front is the same single configuration.\n\n**Threshold-dependent measures do not, and the reason is informative.** Across the 72 accuracy, balanced-accuracy, precision, recall, F1 and MCC values the largest difference is 0.0472 (RF + Fused, internal MCC: 0.4287 against 0.3816) and 7 exceed 0.01. The cause is not the models but the operating point: the threshold is chosen by maximising MCC on 159 validation molecules, and that arg-max is unstable. Probability shifts of order 1e-4 move the selected threshold by up to 0.07, which then moves MCC on the test set by up to 0.047. 3 of the six configurations select an identical threshold on re-execution; 3 do not.\n\nThis is the same phenomenon the manuscript reports for model selection on 248 molecules, applied to threshold selection on 159, and it is worth stating plainly: every primary comparison in the study is threshold-free and is unaffected, but the threshold-dependent columns of the performance tables should be read as having a reproducibility tolerance of several hundredths, not several ten-thousandths. An earlier version of this file claimed exact reproduction; that was true of the original machine and is not guaranteed on another, and the claim has been corrected.\n\nB3DB is a living database: the external set exactly as used is shipped at `data/external_B3DB_filtered.csv`."
+}

@@ -1,0 +1,41 @@
+{
+ "n_scaffolds": 16,
+ "errors_in_multi_error_scaffolds": 22,
+ "multi_error_scaffolds": {
+  "O=C(Cc1ccccc1)N1CCNCC1CN1CCCC1": [
+   "GR94839_C",
+   "GR94839",
+   "GR94839_A",
+   "GR94839_B",
+   "GR94839_H",
+   "SB205563",
+   "GR94839_F",
+   "GR94839_D",
+   "GR94839_I",
+   "GR94839_L",
+   "GR94839_G",
+   "GR94839_E"
+  ],
+  "O=C1NCc2c(-c3ncon3)ncn2-c2ccccc21": [
+   "Mono-hydroxylated-L-663581",
+   "MIL-663581",
+   "M2L-663581",
+   "Bis-hydroxylated-L-663581",
+   "35"
+  ],
+  "c1ccncc1": [
+   "Nicotinyl alcohol",
+   "isoniazid",
+   "12"
+  ],
+  "c1ccc2c(c1)Cc1ccccc1O2": [
+   "methantheline",
+   "Propanthelinebromide"
+  ]
+ },
+ "test_molecules_in_multimember_scaffolds": 177,
+ "n_false_positive": 29,
+ "n_false_negative": 5,
+ "fp_tpsa_median": 73.32000000000001,
+ "fn_tpsa_median": 148.26000000000002
+}
