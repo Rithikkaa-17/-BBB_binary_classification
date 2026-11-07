@@ -160,6 +160,118 @@ is assigned to an individual bit (`results/bit_mapping_and_dependence.json`). At
 logP is strongly non-monotone — linear R² 0.40, quadratic R² 0.89 — so a Pearson
 coefficient understates it.
 
+## Added at revision
+
+Reviewer comments on the BioMedInformatics submission prompted seven further analyses. Three
+claims in the submitted manuscript did not survive them and were withdrawn.
+
+**The error set is not "intermediate polarity".** The submitted text described the misclassified
+molecules as lying where the descriptors discriminate least. Checked against all 34 errors,
+that is wrong: they span polar surface area 33.1 to 215.0, the widest range in the test
+set, with median 79.8 against 45.2 for correct predictions, and only 47% fall
+inside the interquartile band of the correct predictions against 50% of all test
+molecules. What the errors are instead: 29 false positives at median polar surface area
+73 and 5 false negatives at median 148 — opposite ends, not a middle band — and
+22 of 34 fall on scaffolds carrying more than one error, with two congeneric research
+series accounting for 17 between them. Both series carry *both* labels on one Bemis–Murcko
+scaffold, so the model scores the series rather than the molecule. See
+`results/error_analysis.json` and `results/error_clustering.json`.
+
+**The fingerprint block carries more total attribution than the descriptors.** The submitted text
+claimed the model relies predominantly on interpretable bulk properties rather than idiosyncratic
+fingerprint bits. Summed over blocks, the ten descriptors carry 26.2% of total mean
+|SHAP| and the 2,048 bits the remaining 73.8%. What survives is the per-feature statement: a
+descriptor carries about 73 times the attribution of an average bit, and six descriptors
+outrank every individual bit. See `results/block_attribution.json`.
+
+**Version sensitivity was overstated.** The submitted §2.11 claimed differences "of order 0.02"
+between software environments. Rebuilt end to end under rdkit 2026.09.1 / scikit-learn 1.9.1 /
+xgboost 3.4.1, the headline model moves by 0.0006 and the largest shift across all six
+configurations is 0.0019 — an order of magnitude below the fusion effect. All four fusion
+comparisons remain separable in the second environment. See `results/environment_A.json` and
+`results/environment_B.json`.
+
+**What held up.** The fusion effect survives every check applied to it:
+
+| Check | Result |
+|---|---|
+| `max_features` swept over a factor of 56 | fusion beats fingerprint at every setting, all intervals exclude zero (+0.0222 to +0.0269) |
+| gradient-boosting `colsample_bytree` 0.3 / 0.7 / 1.0 | separable at all three |
+| SVM with Tanimoto kernel (no feature subsampling at all) | +0.0228 [+0.0144, +0.0311] |
+| second software environment | all four comparisons separable |
+| desalted, neutralised structures | separable; standardisation *improves* external ROC-AUC by +0.0045 [+0.0022, +0.0068] |
+
+At the scikit-learn default of `max_features='sqrt'` a split considers 45 of 2,058 columns, so
+the probability it can see any descriptor is 0.199. The sweep exists because that number
+makes the default a plausible confounder; it is not one.
+
+**Other additions.** Target-population recalibration recovers most of the calibration deficit
+(expected calibration error 0.199 → 0.046 with Platt scaling, 0.029 with isotonic
+regression; `results/recalibration.json`). Crossing source grouping with scaffold novelty shows
+the novelty penalty is itself source-dependent — group A falls 0.876 → 0.744 and group B
+0.966 → 0.728, while group C does not fall (0.708 → 0.731);
+`results/group_x_novelty.json`. The highest-attribution fingerprint bits are mapped through
+`bitInfo` to the environments that set them, and collisions are present, so no chemical meaning
+is assigned to an individual bit (`results/bit_mapping_and_dependence.json`). Attribution against
+logP is strongly non-monotone — linear R² 0.40, quadratic R² 0.89 — so a Pearson
+coefficient understates it.
+
+## Added at revision
+
+Reviewer comments on the BioMedInformatics submission prompted seven further analyses. Three
+claims in the submitted manuscript did not survive them and were withdrawn.
+
+**The error set is not "intermediate polarity".** The submitted text described the misclassified
+molecules as lying where the descriptors discriminate least. Checked against all 34 errors,
+that is wrong: they span polar surface area 33.1 to 215.0, the widest range in the test
+set, with median 79.8 against 45.2 for correct predictions, and only 47% fall
+inside the interquartile band of the correct predictions against 50% of all test
+molecules. What the errors are instead: 29 false positives at median polar surface area
+73 and 5 false negatives at median 148 — opposite ends, not a middle band — and
+22 of 34 fall on scaffolds carrying more than one error, with two congeneric research
+series accounting for 17 between them. Both series carry *both* labels on one Bemis–Murcko
+scaffold, so the model scores the series rather than the molecule. See
+`results/error_analysis.json` and `results/error_clustering.json`.
+
+**The fingerprint block carries more total attribution than the descriptors.** The submitted text
+claimed the model relies predominantly on interpretable bulk properties rather than idiosyncratic
+fingerprint bits. Summed over blocks, the ten descriptors carry 26.2% of total mean
+|SHAP| and the 2,048 bits the remaining 73.8%. What survives is the per-feature statement: a
+descriptor carries about 73 times the attribution of an average bit, and six descriptors
+outrank every individual bit. See `results/block_attribution.json`.
+
+**Version sensitivity was overstated.** The submitted §2.11 claimed differences "of order 0.02"
+between software environments. Rebuilt end to end under rdkit 2026.09.1 / scikit-learn 1.9.1 /
+xgboost 3.4.1, the headline model moves by 0.0006 and the largest shift across all six
+configurations is 0.0019 — an order of magnitude below the fusion effect. All four fusion
+comparisons remain separable in the second environment. See `results/environment_A.json` and
+`results/environment_B.json`.
+
+**What held up.** The fusion effect survives every check applied to it:
+
+| Check | Result |
+|---|---|
+| `max_features` swept over a factor of 56 | fusion beats fingerprint at every setting, all intervals exclude zero (+0.0222 to +0.0269) |
+| gradient-boosting `colsample_bytree` 0.3 / 0.7 / 1.0 | separable at all three |
+| SVM with Tanimoto kernel (no feature subsampling at all) | +0.0228 [+0.0144, +0.0311] |
+| second software environment | all four comparisons separable |
+| desalted, neutralised structures | separable; standardisation *improves* external ROC-AUC by +0.0045 [+0.0022, +0.0068] |
+
+At the scikit-learn default of `max_features='sqrt'` a split considers 45 of 2,058 columns, so
+the probability it can see any descriptor is 0.199. The sweep exists because that number
+makes the default a plausible confounder; it is not one.
+
+**Other additions.** Target-population recalibration recovers most of the calibration deficit
+(expected calibration error 0.199 → 0.046 with Platt scaling, 0.029 with isotonic
+regression; `results/recalibration.json`). Crossing source grouping with scaffold novelty shows
+the novelty penalty is itself source-dependent — group A falls 0.876 → 0.744 and group B
+0.966 → 0.728, while group C does not fall (0.708 → 0.731);
+`results/group_x_novelty.json`. The highest-attribution fingerprint bits are mapped through
+`bitInfo` to the environments that set them, and collisions are present, so no chemical meaning
+is assigned to an individual bit (`results/bit_mapping_and_dependence.json`). Attribution against
+logP is strongly non-monotone — linear R² 0.40, quadratic R² 0.89 — so a Pearson
+coefficient understates it.
+
 ## Data
 
 | Split | Molecules | Purpose |

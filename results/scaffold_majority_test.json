@@ -1,0 +1,26 @@
+{
+ "n_test": 248,
+ "n_in_multimember_scaffolds": 177,
+ "n_scored": 175,
+ "majority": {
+  "n": 163,
+  "accuracy": 0.8650306748466258,
+  "follows_group_majority": 0.8650306748466258,
+  "mean_p": 0.8669041513975297
+ },
+ "minority": {
+  "n": 12,
+  "accuracy": 0.75,
+  "follows_group_majority": 0.25,
+  "mean_p": 0.7605558860111542
+ },
+ "roc_vs_own_label": 0.9037900874635568,
+ "roc_vs_group_majority": 0.8928735632183908,
+ "mixed_groups": {
+  "n_groups": 4,
+  "n_molecules": 47,
+  "accuracy": 0.5531914893617021,
+  "minority_accuracy": 0.75,
+  "n_minority": 12
+ }
+}
