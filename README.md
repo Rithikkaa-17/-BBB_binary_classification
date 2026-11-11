@@ -143,6 +143,8 @@ work/      created on first run; intermediate artefacts, git-ignored
 All paths in `src/` resolve relative to the repository root, so the scripts run from
 anywhere once the repository is cloned.
 
+Archived snapshot of the code and derived results behind the article: [10.5281/zenodo.24125575](https://doi.org/10.5281/zenodo.24125575)
+
 ## Reproducing
 
 ```bash
