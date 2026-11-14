@@ -7,6 +7,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+import matplotlib.patheffects as pe
 from sklearn.metrics import roc_curve, precision_recall_curve, roc_auc_score, average_precision_score
 from sklearn.calibration import calibration_curve
 
@@ -23,9 +24,13 @@ plt.rcParams.update({'font.family': 'serif', 'font.serif': ['DejaVu Serif'], 'fo
                      'ytick.labelsize': 9.5, 'legend.fontsize': 9.5, 'axes.linewidth': 0.9,
                      'savefig.dpi': 600, 'figure.dpi': 150})
 
-F = json.load(open(D + 'final_results.json'))
-FC = json.load(open(D + 'fair_comparison.json'))
-SC = json.load(open(D + 'shap_calib.json'))
+# Read the ARCHIVED run in results/, not the scratch re-run in work/. The
+# decision threshold is reselected on 159 validation molecules and is unstable
+# (Section 2.11), so a re-run shifts figures in the fourth decimal and they
+# would then disagree with the tables. The archived files are the published run.
+F = json.load(open(RESULTS + 'final_results.json'))
+FC = json.load(open(RESULTS + 'multicriteria_final.json'))
+SC = json.load(open(RESULTS + 'shap_calib.json'))
 P = np.load(D + 'final_preds.npz')
 GREEN, BLUE, ORANGE, PURPLE, MUTED, INK, RED = ('#1d6b3a', '#1f7fc4', '#d1743a',
                                                 '#7a4fa3', '#8b9399', '#22262a', '#b02a37')
@@ -43,9 +48,9 @@ fig, axes = plt.subplots(1, 2, figsize=(7.3, 3.4), sharey=True)
 y = np.arange(len(ORDER))[::-1]
 for ax, key, sdk, title in [
         (axes[0], 'internal_roc_seed_mean', 'internal_roc_seed_sd',
-         '(a) Internal test set (n = 248)'),
+         '(a) Internal test set ($n$ = 248)'),
         (axes[1], 'external_roc_seed_mean', 'external_roc_seed_sd',
-         '(b) External set (n = 2,201)')]:
+         '(b) External set ($n$ = 2201)')]:
     vals = [F['models'][m][key] for m in ORDER]
     sds = [F['models'][m][sdk] for m in ORDER]
     cols = [GREEN if 'Fused' in m else (BLUE if 'Morgan' in m else ORANGE) for m in ORDER]
@@ -86,11 +91,11 @@ for yi, (k, lab, flip) in zip(yy, sel):
     ax.errorbar(d, yi, xerr=[[d - lo], [hi - d]], fmt='o', ms=7, capsize=4, lw=1.5,
                 color=GREEN if hi < 0 or lo > 0 else MUTED, capthick=1.3)
     ax.text(d, yi + 0.22, '%+.4f' % d, ha='center', fontsize=8.6, color=INK)
-    ax.text(0.085, yi, 'p = %.4f' % v['p'] if v['p'] >= 1e-4 else 'p < 0.0001',
+    ax.text(0.085, yi, '$p$ = %.4f' % v['p'] if v['p'] >= 1e-4 else '$p$ < 0.0001',
             fontsize=8, va='center', color='#555')
 ax.axvline(0, color=RED, lw=1.1, ls='--')
 ax.set_yticks(yy); ax.set_yticklabels([l for _, l, _ in sel])
-ax.set_xlabel('Difference in external ROC-AUC (95% CI, 5,000 paired resamples)')
+ax.set_xlabel('Difference in external ROC-AUC (95% CI, 5000 paired resamples)')
 ax.set_xlim(-0.01, 0.105)
 ax.grid(axis='x', alpha=0.2, lw=0.6); ax.set_axisbelow(True)
 despine(ax)
@@ -121,7 +126,7 @@ for xi, v, lo, hi, c, n in zip(x, vals, los, his, cols, ns):
     ax.errorbar(xi, v, yerr=[[v - lo], [hi - v]], fmt='o', ms=9, color=c,
                 capsize=5, lw=1.5, capthick=1.3)
     ax.text(xi, hi + 0.012, '%.4f' % v, ha='center', fontsize=9, color=INK)
-    ax.text(xi, lo - 0.022, 'n = %d' % n, ha='center', fontsize=8.2, color='#555')
+    ax.text(xi, lo - 0.022, '$n$ = %d' % n, ha='center', fontsize=8.2, color='#555')
 ax.axhline(0.5, color=MUTED, lw=0.9, ls=':')
 ax.text(len(labels) - 0.5, 0.505, 'chance', fontsize=8, color=MUTED, ha='right')
 ax.set_xticks(x); ax.set_xticklabels(labels, fontsize=8.8)
@@ -137,8 +142,8 @@ plt.close(fig)
 cal = np.load(D + 'calib_RF_Fused.npz')
 fig, axes = plt.subplots(1, 3, figsize=(7.3, 2.9))
 ax = axes[0]
-for y_, p_, lab, col, ls in [(cal['y_te'], cal['p_te'], 'Internal (n = 248)', GREEN, '-'),
-                             (cal['y_ex'], cal['p_ex'], 'External (n = 2,201)', ORANGE, (0, (4, 2)))]:
+for y_, p_, lab, col, ls in [(cal['y_te'], cal['p_te'], 'Internal ($n$ = 248)', GREEN, '-'),
+                             (cal['y_ex'], cal['p_ex'], 'External ($n$ = 2201)', ORANGE, (0, (4, 2)))]:
     fpr, tpr, _ = roc_curve(y_, p_)
     ax.plot(fpr, tpr, color=col, lw=1.9, ls=ls, label='%s\nAUC %.4f' % (lab, roc_auc_score(y_, p_)))
 ax.plot([0, 1], [0, 1], color=MUTED, lw=0.9, ls=':')
@@ -183,8 +188,9 @@ for yi, n in zip(yy, names):
     pct = 100 * srd[n] / srd_max
     a1.plot(pct, yi, 'o', ms=8, color=GREEN if 'Fused' in n else MUTED)
     a1.plot([0, pct], [yi, yi], color=GREEN if 'Fused' in n else MUTED, lw=1.1, alpha=0.5)
-    a1.text(pct + 1.6, yi, '%.1f' % pct, va='center', fontsize=8.4, color=INK)
-a1.axvline(100 * FC['srd_null_p5'] / srd_max, color=RED, ls='--', lw=1.1)
+    a1.text(pct + 2.2, yi, '%.1f' % pct, va='center', fontsize=8.4, color=INK,
+            path_effects=[pe.withStroke(linewidth=2.6, foreground='white')], zorder=6)
+a1.axvline(100 * FC['srd_null_p5'] / srd_max, color=RED, ls='--', lw=1.1, zorder=1)
 a1.text(100 * FC['srd_null_p5'] / srd_max + 1, len(names) - 1.4,
         'random-ranking\n5th percentile', fontsize=7.6, color=RED)
 a1.set_yticks(yy); a1.set_yticklabels(names, fontsize=9)
@@ -192,24 +198,28 @@ a1.set_xlabel('SRD (% of maximum)'); a1.set_xlim(0, 86)
 a1.set_title('(a) Sum of ranking differences', loc='left', color=INK)
 a1.grid(axis='x', alpha=0.2, lw=0.6); a1.set_axisbelow(True); despine(a1)
 
-rows = FC['rows']
+rows = {n: dict(v, ext_roc_mean=v.get('ext_roc_mean', v.get('ext_roc')))
+        for n, v in FC['rows'].items()}
 front = set(FC['pareto_front'])
 for n, v in rows.items():
     on = n in front
     a2.plot(v['ext_roc_mean'], v['ext_mcc'], 'o', ms=10 if on else 7,
             color=GREEN if on else MUTED, mfc=GREEN if on else 'white',
             mew=1.6, zorder=5 if on else 3)
-    off = {'RF + Fused': (0, 12), 'XGB + Fused': (0, 12),
-           'RF + Morgan': (0, -15), 'XGB + Morgan': (-4, -15),
-           'RF + Descriptors': (34, -4), 'XGB + Descriptors': (38, 4)}[n]
+    off, ha = {'RF + Fused':        ((7, 9),    'left'),
+               'XGB + Fused':       ((-7, 9),   'right'),
+               'RF + Morgan':       ((8, 2),    'left'),
+               'XGB + Morgan':      ((8, 0),    'left'),
+               'RF + Descriptors':  ((8, 0),    'left'),
+               'XGB + Descriptors': ((8, -2),   'left')}[n]
     a2.annotate(n, (v['ext_roc_mean'], v['ext_mcc']), textcoords='offset points',
-                xytext=off, ha='center', fontsize=7.6,
+                xytext=off, ha=ha, va='center', fontsize=7.6,
                 color=INK if on else '#666')
 fx = sorted([rows[n] for n in front], key=lambda r: r['ext_roc_mean'])
 a2.plot([r['ext_roc_mean'] for r in fx], [r['ext_mcc'] for r in fx],
         color=GREEN, lw=1.2, ls='--', alpha=0.7)
 a2.set_xlabel('External ROC-AUC'); a2.set_ylabel('External MCC')
-a2.set_xlim(0.710, 0.800); a2.set_ylim(0.245, 0.368)
+a2.set_xlim(0.710, 0.815); a2.set_ylim(0.245, 0.368)
 a2.set_title('(b) Pareto front', loc='left', color=INK)
 a2.grid(alpha=0.2, lw=0.6); a2.set_axisbelow(True); despine(a2)
 fig.tight_layout(pad=0.5, w_pad=1.6)
